@@ -21,7 +21,7 @@ conda create -n wine python=3.10 -y
 conda activate wine
 ```
 
-### STEp 02- install requirements
+### STEP 02- install requirements
 ```bash
 pip install -r requirements.txt
 ```
