@@ -1,6 +1,6 @@
 from WineQuality.constants import *
 from WineQuality.utils.common import read_yaml, create_directories
-from WineQuality.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig)
+from WineQuality.entity.config_entity import (DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig)
 
 class ConfigurationManager:
     
@@ -55,3 +55,28 @@ class ConfigurationManager:
         )
        
         return data_transformation_config
+    
+    def get_model_trainer_configs(self) -> list[ModelTrainerConfig]:
+
+        config = self.config.model_trainer
+        params = self.params
+        schema = self.schema.TARGET_COLUMN
+
+        create_directories([config.root_dir])
+
+        model_trainer_configs =[]
+
+        for model_name, params_grid in params.items():
+            model_trainer_config = ModelTrainerConfig(
+                root_dir= config.root_dir,
+                model_name= model_name,
+                params_grid= params_grid,
+                train_data_path= config.train_data_path,
+                model_save_dir= config.model_save_dir,
+                target_column= schema.name
+
+            )
+
+            model_trainer_configs.append(model_trainer_config)
+
+        return model_trainer_configs

@@ -21,3 +21,12 @@ class DataValidationConfig():
 class DataTransformationConfig():
     root_dir: Path
     data_path: Path
+
+@dataclass(frozen=True)
+class ModelTrainerConfig():
+    root_dir: Path
+    model_name: str
+    params_grid: dict
+    train_data_path: Path
+    model_save_dir: Path
+    target_column: str
